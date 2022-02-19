@@ -3,6 +3,3 @@ database/.data.json
 
 // Log messages
 log.txt
-
-// Temporary file
-server_copy.ts
