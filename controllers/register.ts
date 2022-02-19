@@ -8,19 +8,19 @@ export default {
     const { username, password, email } = await value;
 
     const db: Database = ctx.state.client.database('dino-cooking');
-    const recipies = db.collection<User>('users');
+    const users = db.collection<User>('users');
 
-    const userByName = await recipies.findOne({"username": username});
-    const userByMail = await recipies.findOne({"email": email});
+    const userByName = await users.findOne({username});
     if(userByName !== undefined) {
       console.log('User exists!');
       return;
     }
+    const userByMail = await users.findOne({email});
     if(userByMail !== undefined) {
       console.log('An account using this email address already exists!');
       return;
     }
-    const insertId = await recipies.insertOne({
+    const insertId = await users.insertOne({
       username,
       password: await bcrypt.hash(password),
       email
