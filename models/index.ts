@@ -15,3 +15,10 @@ export interface Recipe {
     instructions: string;
     donations?: string;
 };
+
+export interface User {
+    _id: Bson.ObjectId;
+    username: string;
+    password: string;
+    email: string;
+};
