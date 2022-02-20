@@ -14,10 +14,10 @@ app.use(async (ctx, next) => {
   await next();
 });
 
-for(const r of routes) {
+routes.map((r) => {
   app.use(r.routes());
   app.use(r.allowedMethods());
-}
+});
 
 app.addEventListener('listen', () => {
   logger.steps.info(`Listening on localhost:${port}`);

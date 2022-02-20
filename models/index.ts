@@ -22,3 +22,9 @@ export interface User {
     password: string;
     email: string;
 };
+
+export interface UserData {
+    username: string;
+    email: string;
+    recipies: Array<Recipe>;
+}
