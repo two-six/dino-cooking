@@ -14,7 +14,7 @@ app.use(async (ctx, next) => {
   await next();
 });
 
-routes.map((r) => {
+routes.forEach((r) => {
   app.use(r.routes());
   app.use(r.allowedMethods());
 });
