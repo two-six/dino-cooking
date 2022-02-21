@@ -53,7 +53,7 @@ enum lang {
   password: string
 }
 ```
-- creates JWT token upon success
+- creates JWT token('userToken') upon success
 
 ### /user/register
 - requires a JSON:
