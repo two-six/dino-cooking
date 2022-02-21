@@ -1,5 +1,9 @@
 import { Bson } from "https://deno.land/x/mongo@v0.29.1/mod.ts";
 
+enum lang{
+    EN,
+};
+
 interface Ingredient {
     name: string;
     amount: string;
@@ -11,6 +15,7 @@ export interface Recipe {
     title: string;
     expected_time?: number;
     ingredients: Array<Ingredient>;
+    language: lang;
     description?: string;
     instructions: string;
     donations?: string;
