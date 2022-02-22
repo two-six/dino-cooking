@@ -6,6 +6,7 @@ import {
   create, 
   verify,
 } from 'https://deno.land/x/djwt@v2.4/mod.ts';
+import { helpers } from 'https://deno.land/x/oak@v10.3.0/mod.ts';
 
 export default {
   view: async (ctx: any) => {
@@ -27,6 +28,7 @@ export default {
       ctx.state.logger.def.debug(`Data sent`);
     } catch(e) {
       ctx.state.logger.steps.error(e);
+      ctx.response.body = 402;
     }
   },
   login: async (ctx: any) => {
@@ -60,9 +62,10 @@ export default {
       const jwt = await create(djwt.header, {username: userByName.username}, djwt.key);
       ctx.cookies.set('userToken', jwt);
       ctx.state.logger.def.debug(`JWT token created: ${userByName.username}`);
-      ctx.response.body ='Logged in!';
+      ctx.response.body = 200;
     } else {
       ctx.state.logger.def.debug(`Invalid Password: ${userByName.username}`);
+      ctx.response.body = 406;
     }
   },
   logout: (ctx: any) => {
@@ -94,5 +97,26 @@ export default {
     });
     ctx.state.logger.def.debug(`User registered: ${username}, ${await bcrypt.hash(password)}, ${email}`);
     ctx.response.body = 200;
+  },
+  remove: async (ctx: any) => {
+    const token = await ctx.cookies.get('userToken');
+    try {
+      const verified: any = await verify(token, djwt.key);
+      ctx.state.logger.def.debug('User verified');
+      const db: Database = ctx.state.client.database('dino-cooking');
+      const users = db.collection<User>('users');
+      const user: any = await users.findOne({username: {$eq: verified.username}});
+      const iod = user._id;
+      ctx.state.logger.def.debug(iod.toString());
+      const value = helpers.getQuery(ctx, {mergeParams: true});
+      if(iod.toString() != value.id) 
+        throw(`User's not the owner of the account`);
+      users.deleteOne({_id: {$eq: iod}});
+      ctx.state.logger.def.debug('Account removed');
+      ctx.response.body = 200;
+    } catch(e) {
+      ctx.state.logger.steps.error(e);
+      ctx.response.body = 401;
+    }
   }
 };

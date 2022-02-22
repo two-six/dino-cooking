@@ -8,5 +8,6 @@ router.get('/user/view', controller.view);
 router.post('/user/login', controller.login);
 router.post('/user/register', controller.register);
 router.delete('/user/logout', controller.logout);
+router.delete('/user/remove/:id', controller.remove);
 
 export default router;

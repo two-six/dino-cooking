@@ -2,7 +2,7 @@
 - [x] Automatic logging to the file
 - [x] Language category in recipies
 - [x] Adding and removing recipies
-- [ ] Switch responses to status codes
+- [x] Switch responses to status codes
 - [ ] Removing Accounts
 - [ ] Adding comments
 - [ ] Removing comments
