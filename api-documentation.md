@@ -32,9 +32,9 @@ enum lang {
 ```
 - Adds new recipe to the database
 
-### /recipies/remove
+### /recipies/remove/<id>
 - type: DELETE
-- requires valid 'userToken'(JWT type) for the owner of the recipe and an ObjectId
+- requires valid 'userToken'(JWT type) for the owner of the recipe and a string(<id>)
 - removes recipe from the database
 
 ## /user:
