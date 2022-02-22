@@ -27,10 +27,15 @@ interface Ingredient {
 }
 
 enum lang {
-    EN
+    EN = 0
 };
 ```
 - Adds new recipe to the database
+
+### /recipies/remove
+- type: DELETE
+- requires valid 'userToken'(JWT type) for the owner of the recipe and an ObjectId
+- removes recipe from the database
 
 ## /user:
 

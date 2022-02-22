@@ -1,8 +1,8 @@
 - [x] Add Register/Login API
 - [x] Automatic logging to the file
 - [x] Language category in recipies
-- [ ] Adding and removing recipies
-- [ ] Error codes
+- [x] Adding and removing recipies
+- [ ] Switch responses to status codes
 - [ ] Removing Accounts
 - [ ] Adding comments
 - [ ] Removing comments
@@ -10,3 +10,4 @@
 - [ ] Editing recipies
 - [ ] Admins/Moderators
 - [ ] Recipies to accept page
+- [ ] Password recovery

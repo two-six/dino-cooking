@@ -68,6 +68,7 @@ export default {
   logout: (ctx: any) => {
     ctx.cookies.set('userToken', null);
     ctx.state.logger.def.debug(`userToken set to null`);
+    ctx.state.body = 200;
   },
   register: async (ctx: any) => {
     const { value } = ctx.request.body({type: 'json'});
@@ -78,12 +79,12 @@ export default {
 
     const userByName = await users.findOne({username});
     if(userByName !== undefined) {
-      ctx.response.body = 'User exists!';
+      ctx.response.body = 406;
       return;
     }
     const userByMail = await users.findOne({email});
     if(userByMail !== undefined) {
-      ctx.response.body = 'An account using this email address already exists!';
+      ctx.response.body = 406;
       return;
     }
     await users.insertOne({
@@ -92,5 +93,6 @@ export default {
       email
     });
     ctx.state.logger.def.debug(`User registered: ${username}, ${await bcrypt.hash(password)}, ${email}`);
+    ctx.response.body = 200;
   }
 };

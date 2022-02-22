@@ -6,5 +6,6 @@ const router = new Router();
 
 router.get('/recipies/view', controller.view);
 router.post('/recipies/add', controller.add);
+router.delete('/recipies/remove/:id', controller.remove);
 
 export default router;
