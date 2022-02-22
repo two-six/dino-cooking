@@ -34,16 +34,18 @@ enum lang {
 
 ### /recipies/remove/`id`
 - type: DELETE
-- requires valid 'userToken'(JWT type) for the owner of the recipe and a string(`id`)
+- requires valid 'userToken'(JWT type) for the owner of the recipe
 - removes recipe from the database
 
 ## /user:
 
 ### /user/view
+- type: GET
 - requires valid 'userToken'(JWT type)
 - returns a JSON upon success: 
 ```
 {
+  _id: Bson.ObjectId;
   username: string,
   email: string,
   Array<recipies>
@@ -51,6 +53,7 @@ enum lang {
 ```
 
 ### /user/login
+type: POST
 - requires a JSON:
 ```
 {
@@ -61,6 +64,7 @@ enum lang {
 - creates JWT token('userToken') upon success
 
 ### /user/register
+- type: POST
 - requires a JSON:
 ```
 {
@@ -72,4 +76,10 @@ enum lang {
 - adds new user to the database upon success
 
 ### /user/logout
+- type: DELETE
 - sets 'userToken'(JWT type) to `null`
+
+### /user/remove/`id`
+- type: DELETE
+- requires valid 'userToken'(JWT type)
+- removes user with the specified `id` from the database

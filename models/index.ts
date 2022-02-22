@@ -29,6 +29,7 @@ export interface User {
 };
 
 export interface UserData {
+    _id: Bson.ObjectId;
     username: string;
     email: string;
     recipies: Array<Recipe>;

@@ -20,6 +20,7 @@ export default {
       const recipies = db.collection<Recipe>('recipies');
       const userRecipies = recipies.find({author: {$eq: user.username}});
       const data: UserData = {
+        _id: user._id,
         username: user.username,
         email: user.email,
         recipies: await userRecipies.toArray(),
