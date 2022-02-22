@@ -4,10 +4,10 @@
 - [x] Adding and removing recipies
 - [x] Switch responses to status codes
 - [x] Removing Accounts
+- [x] Editing recipies
 - [ ] Adding comments
 - [ ] Removing comments
 - [ ] Editing comments
-- [ ] Editing recipies
 - [ ] Admins/Moderators
 - [ ] Recipies to accept page
 - [ ] Password recovery

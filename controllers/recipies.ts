@@ -17,7 +17,7 @@ export default {
     try {
       const verified: any = await verify(token, djwt.key);
       ctx.state.logger.def.debug('User verified');
-      const { value } = ctx.request.body({type: 'json'});
+      const { value } = ctx.request.body({type: "json"});
       const recipeBody: Recipe = await value;
       const db: Database = ctx.state.client.database('dino-cooking');
       const recipies = db.collection<Recipe>('recipies');
@@ -53,6 +53,37 @@ export default {
     } catch(e) {
       ctx.state.logger.steps.error(e);
       ctx.response.body = 401;
+    }
+  },
+  edit: async (ctx: any) => {
+    const token = await ctx.cookies.get('userToken');
+    try {
+      const verified: any = await verify(token, djwt.key);
+      ctx.state.logger.def.debug('User verified');
+      const db: Database = ctx.state.client.database('dino-cooking');
+      const recipies = db.collection<Recipe>('recipies');
+      const value = helpers.getQuery(ctx, {mergeParams: true});
+      const oid = new Bson.ObjectId(value.id);
+      let recipe: any = await recipies.findOne({_id: {$eq: oid}});
+      if(recipe?.author !== verified.username) 
+        throw(`User's not the owner of the recipe`);
+      const reqValue =  ctx.request.body({type: 'json'});
+      const res = await reqValue.value;
+      ctx.state.logger.def.debug(res);
+      Object.entries(res).forEach((entry) => {
+        const [ key, val ] = entry;
+        if(key == "_id" || key == "language" || key == "author")
+          throw(`Invalid field!`);
+        recipe[key] = val;
+      });
+      await recipies.replaceOne(
+        {_id: {$eq: oid}},
+        recipe
+      );
+      ctx.state.logger.def.debug('Recipe updated');
+    } catch(e) {
+      ctx.state.logger.steps.error(e);
+      ctx.response.body = 402;
     }
   }
 };

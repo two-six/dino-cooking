@@ -37,6 +37,12 @@ enum lang {
 - requires valid 'userToken'(JWT type) for the owner of the recipe
 - removes recipe from the database
 
+### /recipies/edit/`id`
+- type: PUT
+- requires valid 'userToken'(JWT type) for the owner of the recipe and a JSON
+- throws an error when trying to edit `author`, `id` or `language`
+- updates recipe with the values provided in JSON
+
 ## /user:
 
 ### /user/view

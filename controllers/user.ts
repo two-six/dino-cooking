@@ -37,7 +37,7 @@ export default {
     const { username, password } = await value;
     const db: Database = ctx.state.client.database('dino-cooking');
     const users = db.collection<User>('users');
-
+    
     ctx.state.logger.def.debug(`Finding user...`);
     const userByName = await users.findOne({username});
 
