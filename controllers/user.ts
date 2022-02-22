@@ -108,12 +108,14 @@ export default {
       const users = db.collection<User>('users');
       const user: any = await users.findOne({username: {$eq: verified.username}});
       const iod = user._id;
-      ctx.state.logger.def.debug(iod.toString());
       const value = helpers.getQuery(ctx, {mergeParams: true});
       if(iod.toString() != value.id) 
         throw(`User's not the owner of the account`);
       users.deleteOne({_id: {$eq: iod}});
       ctx.state.logger.def.debug('Account removed');
+      const recipies = db.collection<Recipe>('recipies');
+      recipies.deleteMany({author: {$eq: verified.username}});
+      ctx.state.logger.def.debug(`All of user's recipies removed`);
       ctx.response.body = 200;
     } catch(e) {
       ctx.state.logger.steps.error(e);

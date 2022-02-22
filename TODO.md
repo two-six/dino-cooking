@@ -3,7 +3,7 @@
 - [x] Language category in recipies
 - [x] Adding and removing recipies
 - [x] Switch responses to status codes
-- [ ] Removing Accounts
+- [x] Removing Accounts
 - [ ] Adding comments
 - [ ] Removing comments
 - [ ] Editing comments
