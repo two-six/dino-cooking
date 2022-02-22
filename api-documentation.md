@@ -15,7 +15,7 @@
    title: string,
    expected_time?: string,
    ingredients: Array<Ingredient>,
-   language: lang,
+   language: string,
    description?: string,
    instructions: string,
    donations?: string
@@ -25,11 +25,8 @@ interface Ingredient {
   name: string;
   amount: string;
 }
-
-enum lang {
-    EN = 0
-};
 ```
+- Valid languages: `EN`
 - Adds new recipe to the database
 
 ### /recipies/remove/`id`

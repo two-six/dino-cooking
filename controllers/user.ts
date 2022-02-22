@@ -7,17 +7,14 @@ import {
   verify,
 } from 'https://deno.land/x/djwt@v2.4/mod.ts';
 import { helpers } from 'https://deno.land/x/oak@v10.3.0/mod.ts';
+import utils from '../utils/utils.ts';
+
 
 export default {
   view: async (ctx: any) => {
-    const token = await ctx.cookies.get('userToken');
     try {
-      const verified: any = await verify(token, djwt.key);
-      ctx.state.logger.def.debug('User verified');
-      const db: Database = ctx.state.client.database('dino-cooking');
-      const users = db.collection<User>('users');
+      const {verified, users, recipies} = await utils.valADbs(ctx);
       const user: any = await users.findOne({username: {$eq: verified.username}});
-      const recipies = db.collection<Recipe>('recipies');
       const userRecipies = recipies.find({author: {$eq: user.username}});
       const data: UserData = {
         _id: user._id,
@@ -94,18 +91,15 @@ export default {
     await users.insertOne({
       username,
       password: await bcrypt.hash(password),
-      email
+      email,
+      role: "user"
     });
     ctx.state.logger.def.debug(`User registered: ${username}, ${await bcrypt.hash(password)}, ${email}`);
     ctx.response.body = 200;
   },
   remove: async (ctx: any) => {
-    const token = await ctx.cookies.get('userToken');
     try {
-      const verified: any = await verify(token, djwt.key);
-      ctx.state.logger.def.debug('User verified');
-      const db: Database = ctx.state.client.database('dino-cooking');
-      const users = db.collection<User>('users');
+      const {verified, users, recipies} = await utils.valADbs(ctx);
       const user: any = await users.findOne({username: {$eq: verified.username}});
       const iod = user._id;
       const value = helpers.getQuery(ctx, {mergeParams: true});
@@ -113,7 +107,6 @@ export default {
         throw(`User's not the owner of the account`);
       users.deleteOne({_id: {$eq: iod}});
       ctx.state.logger.def.debug('Account removed');
-      const recipies = db.collection<Recipe>('recipies');
       recipies.deleteMany({author: {$eq: verified.username}});
       ctx.state.logger.def.debug(`All of user's recipies removed`);
       ctx.response.body = 200;
