@@ -9,12 +9,12 @@ import {
 
 export default {
   view: async (ctx: any) => {
-    const db: Database = ctx.state.client.database('dino-cooking');
-    const users = db.collection<User>('users');
     const token = await ctx.cookies.get('userToken');
     try {
       const verified: any = await verify(token, djwt.key);
       ctx.state.logger.def.debug('User verified');
+      const db: Database = ctx.state.client.database('dino-cooking');
+      const users = db.collection<User>('users');
       const user: any = await users.findOne({username: {$eq: verified.username}});
       const recipies = db.collection<Recipe>('recipies');
       const userRecipies = recipies.find({author: {$eq: user.username}});

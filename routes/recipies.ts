@@ -4,7 +4,7 @@ import controller from '../controllers/recipies.ts';
 
 const router = new Router();
 
-router.get('/recipies/view', controller.viewRecipies);
-router.post('/recipies/add', controller.addRecipe);
+router.get('/recipies/view', controller.view);
+router.post('/recipies/add', controller.add);
 
 export default router;
