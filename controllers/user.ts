@@ -131,7 +131,7 @@ export default {
   },
   remove: async (ctx: any) => {
     try {
-      const {verified, users, recipies} = await utils.valADbs(ctx);
+      const {verified, users, recipies, comments, ratings} = await utils.valADbs(ctx);
       const user: any = await users.findOne({
         _id: {$eq: new Bson.ObjectId(verified)}
       });
@@ -141,6 +141,17 @@ export default {
         throw(`User's not the owner of the account`);
       users.deleteOne({_id: {$eq: iod}});
       ctx.state.logger.def.debug('Account removed');
+      const allRecipies = recipies.find({
+        author: {$eq: user.username}
+      });
+      allRecipies.forEach((r) => {
+        comments.deleteMany({
+          recipeId: {$eq: r._id}
+        });
+        ratings.deleteMany({
+          recipeId: {$eq: r._id}
+        });
+      });
       recipies.deleteMany({author: {$eq: user.username}});
       ctx.state.logger.def.debug(`All of user's recipies removed`);
       ctx.cookies.set('userToken', null);

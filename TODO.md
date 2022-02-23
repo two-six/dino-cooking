@@ -7,9 +7,11 @@
 - [x] Editing recipies
 - [x] Rating recipies
 - [x] Adding comments
-- [ ] Removing user should remove all of his recipies and comments associated to them
+- [x] Removing user should remove all of his recipies and comments associated to them
+- [ ] Removing recipe should remove all of it's comments
 - [ ] Removing comments
 - [ ] Editing comments
 - [ ] Admins/Moderators
 - [ ] Recipies to accept page
 - [ ] Password recovery
+- [ ] Safety
