@@ -40,6 +40,11 @@ interface Ingredient {
 - throws an error when trying to edit `author`, `id` or `language`
 - updates recipe with the values provided in JSON
 
+### /recipies/rate/`id`
+- type: PUT
+- requires valid 'userToken'(JWT type)
+- toggles rate on recipe
+
 ## /user:
 
 ### /user/view

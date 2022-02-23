@@ -9,7 +9,6 @@ import {
 import { helpers } from 'https://deno.land/x/oak@v10.3.0/mod.ts';
 import utils from '../utils/utils.ts';
 
-
 export default {
   view: async (ctx: any) => {
     try {
