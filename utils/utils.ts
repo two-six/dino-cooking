@@ -1,4 +1,4 @@
-import {Database, Collection, Bson} from 'https://deno.land/x/mongo@v0.29.2/mod.ts';
+import {Database, Collection } from 'https://deno.land/x/mongo@v0.29.2/mod.ts';
 import djwt from '../utils/login.ts';
 import { verify } from 'https://deno.land/x/djwt@v2.4/mod.ts';
 import {User, Recipe, Rating, Comment} from '../models/index.ts';

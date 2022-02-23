@@ -1,5 +1,5 @@
 import client from './database/index.ts';
-import { Application, Router } from 'https://deno.land/x/oak@v10.2.1/mod.ts';
+import { Application } from 'https://deno.land/x/oak@v10.2.1/mod.ts';
 import routes from './routes/main.ts';
 import logger from './utils/logger.ts';
 

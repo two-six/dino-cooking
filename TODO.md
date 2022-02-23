@@ -5,7 +5,9 @@
 - [x] Switch responses to status codes
 - [x] Removing Accounts
 - [x] Editing recipies
-- [ ] Adding comments
+- [x] Rating recipies
+- [x] Adding comments
+- [ ] Removing user should remove all of his recipies and comments associated to them
 - [ ] Removing comments
 - [ ] Editing comments
 - [ ] Admins/Moderators
