@@ -13,7 +13,6 @@ export default {
   view: async (ctx: any) => {
     try {
       const {verified, users, recipies} = await utils.valADbs(ctx);
-      const tmp_id = new Bson.ObjectId(verified);
       ctx.state.logger.def.debug(verified);
       const user: any = await users.findOne({
         _id: {$eq: new Bson.ObjectId(verified)}
@@ -30,6 +29,28 @@ export default {
     } catch(e) {
       ctx.state.logger.steps.error(e);
       ctx.response.body = 402;
+    }
+  },
+  viewId: async (ctx: any) => {
+    try {
+      const db: Database = ctx.state.client.database('dino-cooking');
+      const users = db.collection<User>('users');
+      const value = helpers.getQuery(ctx, {mergeParams: true});
+      const user = await users.findOne({
+        _id: {$eq: new Bson.ObjectId(value.id)}
+      });
+      const recipies = db.collection<Recipe>('recipies');
+      const allRecipies = (await recipies.find({
+        author: {$eq: user?.username}
+      }).toArray());
+      ctx.response.body = {
+        username: user?.username,
+        recipies: allRecipies
+      };
+      ctx.state.logger.def.debug('Success');
+    } catch(e) {
+      ctx.state.logger.steps.error(e);
+      ctx.response.body = 401;
     }
   },
   login: async (ctx: any) => {
