@@ -32,15 +32,16 @@ export interface UserData {
     recipies: Array<Recipe>;
 }
 
-export interface rating {
+export interface Rating {
     _id: Bson.ObjectId;
     userId: Bson.ObjectId;
     recipeId: Bson.ObjectId;
 }
 
-export interface comment {
+export interface Comment {
     _id: Bson.ObjectId;
     userId: Bson.ObjectId;
     username: string;
     recipeId: Bson.ObjectId;
+    content: string;
 }

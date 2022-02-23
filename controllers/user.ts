@@ -76,6 +76,12 @@ export default {
     ctx.state.body = 200;
   },
   register: async (ctx: any) => {
+    try {
+      await utils.valADbs(ctx);
+      ctx.state.logger.def.debug(`Logged user can't register`);
+      ctx.response.body = 402;
+      return;
+    } catch(e) {}
     const { value } = ctx.request.body({type: 'json'});
     const { username, password, email } = await value;
 
@@ -84,11 +90,13 @@ export default {
 
     const userByName = await users.findOne({username: {$eq: username}});
     if(userByName !== undefined) {
+      ctx.state.logger.def.debug(`User with this username exists`);
       ctx.response.body = 406;
       return;
     }
     const userByMail = await users.findOne({email: {$eq: email}});
     if(userByMail !== undefined) {
+      ctx.state.logger.def.debug(`User with this email exists`);
       ctx.response.body = 406;
       return;
     }

@@ -78,11 +78,30 @@ export default {
     }
   },
   rate: async (ctx: any) => {
-  //   try {
-  //     const {verified, recipies, users} = await utils.valADbs(ctx);
-  //   } catch(e) {
-  //     ctx.state.logger.steps.error(e);
-  //     ctx.response.body = 402;
-  //   }
+    try {
+      const {verified, ratings} = await utils.valADbs(ctx);
+      const value = helpers.getQuery(ctx, {mergeParams: true});
+      const rCount = await ratings.countDocuments({
+        userId: {$eq: new Bson.ObjectId(verified)},
+        recipeId: {$eq: new Bson.ObjectId(value.id)}
+      });
+      if(rCount > 0) {
+        const n = await ratings.deleteMany({
+          userId: {$eq: new Bson.ObjectId(verified)},
+          recipeId: {$eq: new Bson.ObjectId(value.id)}
+        });
+        ctx.state.logger.def.debug(`${n} rating/s deleted`);
+      } else {
+        ratings.insertOne({
+          userId: new Bson.ObjectId(verified),
+          recipeId: new Bson.ObjectId(value.id)
+        });
+        ctx.state.logger.def.debug('Rating created');
+      }
+      ctx.response.body = 200; 
+    } catch(e) {
+      ctx.state.logger.steps.error(e);
+      ctx.response.body = 402;
+    }
   }
 };
