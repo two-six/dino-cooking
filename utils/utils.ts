@@ -1,11 +1,11 @@
-import {Database, Collection} from 'https://deno.land/x/mongo@v0.29.2/mod.ts';
+import {Database, Collection, Bson} from 'https://deno.land/x/mongo@v0.29.2/mod.ts';
 import djwt from '../utils/login.ts';
 import { verify } from 'https://deno.land/x/djwt@v2.4/mod.ts';
 import {User, Recipe} from '../models/index.ts';
 
 export default {
   valADbs: async (ctx: any): Promise<{
-    verified: {username: string}, 
+    verified: string, 
     users: Collection<User>, 
     recipies: Collection<Recipe>
   }> => {
@@ -15,6 +15,6 @@ export default {
     const db: Database = ctx.state.client.database('dino-cooking');
     const users = db.collection<User>('users');
     const recipies = db.collection<Recipe>('recipies');
-    return { verified, users, recipies };
+    return { verified: verified.id, users, recipies };
   }
 }

@@ -31,3 +31,16 @@ export interface UserData {
     email: string;
     recipies: Array<Recipe>;
 }
+
+export interface rating {
+    _id: Bson.ObjectId;
+    userId: Bson.ObjectId;
+    recipeId: Bson.ObjectId;
+}
+
+export interface comment {
+    _id: Bson.ObjectId;
+    userId: Bson.ObjectId;
+    username: string;
+    recipeId: Bson.ObjectId;
+}

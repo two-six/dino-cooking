@@ -1,4 +1,4 @@
-import { Database } from 'https://deno.land/x/mongo@v0.29.1/mod.ts';
+import { Database, Bson } from 'https://deno.land/x/mongo@v0.29.1/mod.ts';
 import { User, Recipe, UserData } from '../models/index.ts';
 import * as bcrypt from 'https://deno.land/x/bcrypt@v0.3.0/mod.ts';
 import djwt from '../utils/login.ts';
@@ -14,7 +14,11 @@ export default {
   view: async (ctx: any) => {
     try {
       const {verified, users, recipies} = await utils.valADbs(ctx);
-      const user: any = await users.findOne({username: {$eq: verified.username}});
+      const tmp_id = new Bson.ObjectId(verified);
+      ctx.state.logger.def.debug(verified);
+      const user: any = await users.findOne({
+        _id: {$eq: new Bson.ObjectId(verified)}
+      });
       const userRecipies = recipies.find({author: {$eq: user.username}});
       const data: UserData = {
         _id: user._id,
@@ -36,7 +40,7 @@ export default {
     const users = db.collection<User>('users');
     
     ctx.state.logger.def.debug(`Finding user...`);
-    const userByName = await users.findOne({username});
+    const userByName = await users.findOne({username: {$eq: username}});
 
     if(userByName === undefined) {
       ctx.state.logger.def.debug(`Couldn't find user`);
@@ -57,7 +61,7 @@ export default {
         } 
         ctx.state.logger.def.debug(`User not logged in already: ${userByName.username}`);
       }
-      const jwt = await create(djwt.header, {username: userByName.username}, djwt.key);
+      const jwt = await create(djwt.header, {id: userByName._id.toString()}, djwt.key);
       ctx.cookies.set('userToken', jwt);
       ctx.state.logger.def.debug(`JWT token created: ${userByName.username}`);
       ctx.response.body = 200;
@@ -78,12 +82,12 @@ export default {
     const db: Database = ctx.state.client.database('dino-cooking');
     const users = db.collection<User>('users');
 
-    const userByName = await users.findOne({username});
+    const userByName = await users.findOne({username: {$eq: username}});
     if(userByName !== undefined) {
       ctx.response.body = 406;
       return;
     }
-    const userByMail = await users.findOne({email});
+    const userByMail = await users.findOne({email: {$eq: email}});
     if(userByMail !== undefined) {
       ctx.response.body = 406;
       return;
@@ -100,15 +104,19 @@ export default {
   remove: async (ctx: any) => {
     try {
       const {verified, users, recipies} = await utils.valADbs(ctx);
-      const user: any = await users.findOne({username: {$eq: verified.username}});
+      const user: any = await users.findOne({
+        _id: {$eq: new Bson.ObjectId(verified)}
+      });
       const iod = user._id;
       const value = helpers.getQuery(ctx, {mergeParams: true});
       if(iod.toString() != value.id) 
         throw(`User's not the owner of the account`);
       users.deleteOne({_id: {$eq: iod}});
       ctx.state.logger.def.debug('Account removed');
-      recipies.deleteMany({author: {$eq: verified.username}});
+      recipies.deleteMany({author: {$eq: user.username}});
       ctx.state.logger.def.debug(`All of user's recipies removed`);
+      ctx.cookies.set('userToken', null);
+      ctx.state.logger.def.debug(`userToken set to null`);
       ctx.response.body = 200;
     } catch(e) {
       ctx.state.logger.steps.error(e);

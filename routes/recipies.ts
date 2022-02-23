@@ -8,5 +8,6 @@ router.get('/recipies/view', controller.view);
 router.post('/recipies/add', controller.add);
 router.delete('/recipies/remove/:id', controller.remove);
 router.put('/recipies/edit/:id', controller.edit);
+router.put('/recipies/rate/:id', controller.rate);
 
 export default router;
