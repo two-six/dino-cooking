@@ -121,3 +121,20 @@ type: POST
 }
 ```
 - edits content of the comment with the specified `id`
+
+## /mod
+
+### /mod/makemod/`:id`
+- type: PUT
+- requires a valid 'userToken'(JWT type) for an admin.
+- changes user's with given `id` role to `moderator`
+
+### /mod/removemod/`:id`
+- type: DELETE
+- requires a valid 'userToken'(JWT type) for an admin.
+- changes user's with given `id` role to `user`
+
+
+### /mod/viewmod/
+- type: GET
+- returns an array of current moderators and admins

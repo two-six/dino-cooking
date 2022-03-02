@@ -13,6 +13,7 @@
 - [x] Editing comments
 - [x] View comments
 - [x] Creating moderators
+- [x] Removing moderators
 - [ ] Recipies to accept page
 - [ ] Recipies' headers
 - [ ] Password recovery

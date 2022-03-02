@@ -4,6 +4,8 @@ import controller from '../controllers/mod.ts';
 
 const router = new Router();
 
+router.get('/mod/viewmod', controller.viewMod);
 router.put('/mod/makemod/:id', controller.makeMod);
+router.delete('/mod/removemod/:id', controller.removeMod);
 
 export default router;
