@@ -30,13 +30,20 @@ export default {
   },
   remove: async (ctx: any) => {
     try {
-      const {verified, users, recipies} = await utils.valADbs(ctx);
+      const {verified, users, recipies, comments} = await utils.valADbs(ctx);
       const user: any = await users.findOne({
         _id: {$eq: new Bson.ObjectId(verified)}
       });
       const value = helpers.getQuery(ctx, {mergeParams: true});
       const oid = new Bson.ObjectId(value.id);
       const recipe = await recipies.findOne({_id: {$eq: oid}});
+      const allComments = comments.find({
+        recipeId: {$eq: recipe?._id}
+      });
+      allComments.forEach(com => {
+        comments.deleteOne({_id: {$eq: com._id}});
+      });
+      ctx.state.logger.def.debug('Comments removed');
       if(user.username != recipe?.author) 
         throw(`User's not the owner of the recipe`);
       recipies.deleteOne({_id: {$eq: oid}});
