@@ -8,8 +8,8 @@
 - [x] Rating recipies
 - [x] Adding comments
 - [x] Removing user should remove all of his recipies and comments associated to them
-- [ ] Removing recipe should remove all of it's comments
-- [ ] Removing comments
+- [x] Removing recipe should remove all of it's comments
+- [x] Removing comments
 - [ ] Editing comments
 - [ ] Admins/Moderators
 - [ ] Recipies to accept page
