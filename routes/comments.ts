@@ -6,5 +6,6 @@ const router = new Router();
 
 router.post('/comment/add/:id', controller.add);
 router.delete('/comment/remove/:id', controller.remove);
+router.put('/comment/edit/:id', controller.edit);
 
 export default router;

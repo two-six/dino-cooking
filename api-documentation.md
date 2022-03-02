@@ -103,8 +103,17 @@ type: POST
 }
 ```
 - adds new comment to the recipe of the specified `id`
-
 ### /comment/remove/`id`
 - type: DELETE
 - requires valid 'userToken'(JWT type)
 - removes a comment with the specified `id`
+
+### /comment/edit/`id`
+- type: PUT
+- requires valid 'userToken'(JWT type) and a JSON:
+```
+{
+  content: string;
+}
+```
+- edits content of the comment with the specified `id`

@@ -10,7 +10,9 @@
 - [x] Removing user should remove all of his recipies and comments associated to them
 - [x] Removing recipe should remove all of it's comments
 - [x] Removing comments
-- [ ] Editing comments
+- [x] Editing comments
+- [ ] View comments
+- [ ] Recipies' headers
 - [ ] Admins/Moderators
 - [ ] Recipies to accept page
 - [ ] Password recovery

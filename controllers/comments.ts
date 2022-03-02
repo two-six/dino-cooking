@@ -31,8 +31,13 @@ export default {
   },
   remove: async (ctx: any) => {
     try {
-      const {comments} = await utils.valADbs(ctx);
+      const {verified, comments} = await utils.valADbs(ctx);
       const commentId = helpers.getQuery(ctx, {mergeParams: true});
+      const com = await comments.findOne({
+        _id: {$eq: new Bson.ObjectId(commentId.id)}
+      });
+      if(com?.userId.toString() !== verified) 
+        throw("Invalid user");
       const dCount = await comments.deleteOne({
         _id: {$eq: new Bson.ObjectId(commentId.id)}
       });
@@ -40,6 +45,31 @@ export default {
         ctx.state.logger.steps.info('No comments removed');
       else
         ctx.state.logger.def.debug('Comment removed');
+      ctx.response.body = 200;
+    } catch(e) {
+      ctx.state.logger.steps.error(e);
+      ctx.response.body = 401;
+    }
+  },
+  edit: async (ctx: any) => {
+    try {
+      const {verified, comments} = await utils.valADbs(ctx);
+      const commentId = helpers.getQuery(ctx, {mergeParams: true});
+      const com = await comments.findOne({
+        _id: {$eq: new Bson.ObjectId(commentId.id)}
+      });
+      if(com?.userId.toString() !== verified)
+        throw("Invalid user");
+      const { value } = ctx.request.body({type: "json"});
+      const { content } = await value; 
+      const {modifiedCount} = await comments.updateOne(
+        {_id: {$eq: new Bson.ObjectId(commentId.id)}},
+        {$set: {content}}
+      );
+      if(modifiedCount < 1)
+        ctx.state.logger.steps.info('No comments modified');
+      else
+        ctx.state.logger.def.debug('Comment editied succesfuly');
       ctx.response.body = 200;
     } catch(e) {
       ctx.state.logger.steps.error(e);
