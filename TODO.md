@@ -11,7 +11,7 @@
 - [x] Removing recipe should remove all of it's comments
 - [x] Removing comments
 - [x] Editing comments
-- [ ] View comments
+- [x] View comments
 - [ ] Recipies' headers
 - [ ] Admins/Moderators
 - [ ] Recipies to accept page
