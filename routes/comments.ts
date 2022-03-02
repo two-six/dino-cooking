@@ -4,6 +4,7 @@ import controller from '../controllers/comments.ts';
 
 const router = new Router();
 
+router.get('/comment/view/:id', controller.view);
 router.post('/comment/add/:id', controller.add);
 router.delete('/comment/remove/:id', controller.remove);
 router.put('/comment/edit/:id', controller.edit);

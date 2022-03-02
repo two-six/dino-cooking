@@ -1,8 +1,23 @@
-import { Bson } from 'https://deno.land/x/mongo@v0.29.1/mod.ts';
+import { Bson, Database } from 'https://deno.land/x/mongo@v0.29.1/mod.ts';
 import { helpers } from 'https://deno.land/x/oak@v10.3.0/mod.ts';
+import { Comment } from '../models/index.ts';
 import utils from '../utils/utils.ts';
 
 export default {
+  view: async (ctx: any) => {
+    try {
+      const db: Database = ctx.state.client.database('dino-cooking');
+      const comments = db.collection<Comment>('comments');
+      const value = helpers.getQuery(ctx, {mergeParams: true});
+      const allComments = await comments.find({
+        recipeId: {$eq: new Bson.ObjectId(value.id)}
+      }).toArray();
+      ctx.response.body = allComments;
+    } catch(e) {
+      ctx.state.logger.steps.error(e);
+      ctx.response.body = 401;
+    }
+  }, 
   add: async (ctx: any) => {
     try {
       const {comments, recipies, verified, users} = await utils.valADbs(ctx);

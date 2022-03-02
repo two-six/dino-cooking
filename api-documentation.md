@@ -94,8 +94,12 @@ type: POST
 
 ## /comment
 
-### /comment/add/`id`
+### /comment/view/`id`
 - type: GET
+- returns all comments of recipe with given `id`
+
+### /comment/add/`id`
+- type: POST
 - requires valid 'userToken'(JWT type) and a JSON:
 ```
 {

@@ -16,4 +16,4 @@
 - [ ] Admins/Moderators
 - [ ] Recipies to accept page
 - [ ] Password recovery
-- [ ] Safety
+- [ ] Limit to the received input
