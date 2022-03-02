@@ -5,5 +5,6 @@ import controller from '../controllers/comments.ts';
 const router = new Router();
 
 router.post('/comment/add/:id', controller.add);
+router.delete('/comment/remove/:id', controller.remove);
 
 export default router;

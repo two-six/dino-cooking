@@ -32,7 +32,7 @@ interface Ingredient {
 ### /recipies/remove/`id`
 - type: DELETE
 - requires valid 'userToken'(JWT type) for the owner of the recipe
-- removes recipe from the database
+- removes recipe and it's children(comments, ratings) from the database
 
 ### /recipies/edit/`id`
 - type: PUT
@@ -90,4 +90,21 @@ type: POST
 ### /user/remove/`id`
 - type: DELETE
 - requires valid 'userToken'(JWT type)
-- removes user with the specified `id` from the database
+- removes user with the specified `id` and it's children(comments, ratings, recipies) from the database
+
+## /comment
+
+### /comment/add/`id`
+- type: GET
+- requires valid 'userToken'(JWT type) and a JSON:
+```
+{
+  content: string;
+}
+```
+- adds new comment to the recipe of the specified `id`
+
+### /comment/remove/`id`
+- type: DELETE
+- requires valid 'userToken'(JWT type)
+- removes a comment with the specified `id`

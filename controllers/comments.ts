@@ -28,5 +28,22 @@ export default {
       ctx.state.logger.steps.error(e);
       ctx.response.body = 401;
     }
+  },
+  remove: async (ctx: any) => {
+    try {
+      const {comments} = await utils.valADbs(ctx);
+      const commentId = helpers.getQuery(ctx, {mergeParams: true});
+      const dCount = await comments.deleteOne({
+        _id: {$eq: new Bson.ObjectId(commentId.id)}
+      });
+      if(dCount < 1) 
+        ctx.state.logger.steps.info('No comments removed');
+      else
+        ctx.state.logger.def.debug('Comment removed');
+      ctx.response.body = 200;
+    } catch(e) {
+      ctx.state.logger.steps.error(e);
+      ctx.response.body = 401;
+    }
   }
 };
