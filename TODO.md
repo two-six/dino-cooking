@@ -12,8 +12,8 @@
 - [x] Removing comments
 - [x] Editing comments
 - [x] View comments
-- [ ] Recipies' headers
-- [ ] Admins/Moderators
+- [x] Creating moderators
 - [ ] Recipies to accept page
+- [ ] Recipies' headers
 - [ ] Password recovery
 - [ ] Limit to the received input
