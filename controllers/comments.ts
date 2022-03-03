@@ -10,7 +10,10 @@ export default {
       const comments = db.collection<Comment>('comments');
       const value = helpers.getQuery(ctx, {mergeParams: true});
       const allComments = await comments.find({
-        recipeId: {$eq: new Bson.ObjectId(value.id)}
+        $and: [
+          {recipeId: {$eq: new Bson.ObjectId(value.id)}},
+          {accepted: {$eq: true}}
+        ]
       }).toArray();
       ctx.response.body = allComments;
     } catch(e) {
@@ -35,7 +38,8 @@ export default {
         userId: user._id,
         username: user.username,
         recipeId: recipe._id,
-        content
+        content,
+        accepted: false
       });
       ctx.state.logger.def.debug('Comment created');
       ctx.response.body = 200;

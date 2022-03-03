@@ -59,5 +59,30 @@ export default {
       ctx.state.logger.steps.error(e);
       ctx.response.body = 401;
     }
+  },
+  comAccept: async (ctx: any) => {
+    try {
+      const {verified, users, comments} = await utils.valADbs(ctx);
+      const curUser = await users.findOne(
+        {_id: {$eq: new Bson.ObjectId(verified)}}
+      );
+      if(curUser?.role !== "admin" && curUser?.role !== "moderator") 
+        throw("User is not an admin or moderator");
+      const value = helpers.getQuery(ctx, {mergeParams: true});
+      const curCom = await comments.findOne(
+        {_id: {$eq: new Bson.ObjectId(value.id)}}
+      );
+      if(curCom?.accepted)
+        throw("This comment is already accepted!");
+      comments.updateOne(
+        {_id: {$eq: new Bson.ObjectId(value.id)}},
+        {accepted: true}
+      );
+      ctx.state.logger.def.debug('Comment accepted succesfully');
+      ctx.response.body = 200;
+    } catch(e) {
+      ctx.state.logger.steps.error(e);
+      ctx.response.body = 401;
+    }
   }
 }

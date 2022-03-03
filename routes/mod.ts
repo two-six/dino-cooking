@@ -7,5 +7,6 @@ const router = new Router();
 router.get('/mod/viewmod', controller.viewMod);
 router.put('/mod/makemod/:id', controller.makeMod);
 router.delete('/mod/removemod/:id', controller.removeMod);
+router.post('/mod/comaccept/:id', controller.comAccept);
 
 export default router;

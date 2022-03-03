@@ -96,7 +96,7 @@ type: POST
 
 ### /comment/view/`id`
 - type: GET
-- returns all comments of recipe with given `id`
+- returns all accepted comments of recipe with given `id`
 
 ### /comment/add/`id`
 - type: POST
@@ -124,12 +124,12 @@ type: POST
 
 ## /mod
 
-### /mod/makemod/`:id`
+### /mod/makemod/`id`
 - type: PUT
 - requires a valid 'userToken'(JWT type) for an admin.
 - changes user's with given `id` role to `moderator`
 
-### /mod/removemod/`:id`
+### /mod/removemod/`id`
 - type: DELETE
 - requires a valid 'userToken'(JWT type) for an admin.
 - changes user's with given `id` role to `user`
@@ -138,3 +138,8 @@ type: POST
 ### /mod/viewmod/
 - type: GET
 - returns an array of current moderators and admins
+
+### /mod/comaccept/`id`
+- type: POST
+- requres a valid 'userToken'(JWT type) for an admin or a moderator.
+- accepts comment with a given `id`

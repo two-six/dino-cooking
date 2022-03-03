@@ -15,6 +15,10 @@
 - [x] Creating moderators
 - [x] Removing moderators
 - [ ] Recipies to accept page
+- [ ] Comments to accept page
+- [ ] View recipies accept page
+- [ ] View comments accept page
+- [ ] Accept page by id
 - [ ] Recipies' headers
 - [ ] Password recovery
 - [ ] Limit to the received input

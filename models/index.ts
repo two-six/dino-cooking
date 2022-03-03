@@ -15,6 +15,7 @@ export interface Recipe {
     description?: string;
     instructions: string;
     donations?: string;
+    accepted?: boolean;
 };
 
 export interface User {
@@ -45,4 +46,5 @@ export interface Comment {
     username: string;
     recipeId: Bson.ObjectId;
     content: string;
+    accepted: boolean;
 }
