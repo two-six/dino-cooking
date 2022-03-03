@@ -7,7 +7,7 @@ export default {
   view: async (ctx: any) => {
     const db: Database = ctx.state.client.database('dino-cooking');
     const recipies = db.collection<Recipe>('recipies');
-    const allRecipies = (await recipies.find({language: { $ne: "" }}).toArray());
+    const allRecipies = (await recipies.find({accepted: { $eq: true }}).toArray());
 
     ctx.response.body = allRecipies;
   },
@@ -20,6 +20,7 @@ export default {
         _id: {$eq: new Bson.ObjectId(verified)}
       });
       recipeBody.author = user.username;
+      recipeBody.accepted = false;
       recipies.insertOne(recipeBody);
       ctx.state.logger.def.debug('New recipe added succesfully').
       ctx.response.body = 200;

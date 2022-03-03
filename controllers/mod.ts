@@ -84,5 +84,42 @@ export default {
       ctx.state.logger.steps.error(e);
       ctx.response.body = 401;
     }
+  },
+  viewRec: async(ctx: any) => {
+    try {
+      const {verified, users, recipies} = await utils.valADbs(ctx);
+      const curUser = await users.findOne(
+        {_id: {$eq: new Bson.ObjectId(verified)}}
+      );
+      if(curUser?.role !== "admin" && curUser?.role !== "moderator") 
+        throw("User is not an admin or moderator");
+      const allRecipies = await recipies.find({
+        accepted: {$eq: false}
+      }).toArray();
+      ctx.response.body = allRecipies;
+    } catch(e) {
+      ctx.state.logger.steps.error(e);
+      ctx.response.body = 401;
+    }
+  },
+  recAccept: async(ctx: any) => {
+    try {
+      const {verified, users, recipies} = await utils.valADbs(ctx);
+      const curUser = await users.findOne(
+        {_id: {$eq: new Bson.ObjectId(verified)}}
+      );
+      if(curUser?.role !== "admin" && curUser?.role !== "moderator")
+        throw("User is not an admin or moderator");
+      const value = helpers.getQuery(ctx, {mergeParams: true});
+      await recipies.updateOne(
+        {_id: {$eq: new Bson.ObjectId(value.id)}},
+        {accepted: true}
+      );
+      ctx.state.logger.def.debug('Recipe accepted');
+      ctx.response.body = 200;
+    } catch(e) {
+      ctx.state.logger.steps.error(e);
+      ctx.response.body = 401;
+    }
   }
 }
