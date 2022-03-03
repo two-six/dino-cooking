@@ -2,10 +2,7 @@ import { Database, Bson } from 'https://deno.land/x/mongo@v0.29.1/mod.ts';
 import { User, Recipe, UserData } from '../models/index.ts';
 import * as bcrypt from 'https://deno.land/x/bcrypt@v0.3.0/mod.ts';
 import djwt from '../utils/login.ts';
-import { 
-  create, 
-  verify,
-} from 'https://deno.land/x/djwt@v2.4/mod.ts';
+import { create, verify } from 'https://deno.land/x/djwt@v2.4/mod.ts';
 import { helpers } from 'https://deno.land/x/oak@v10.3.0/mod.ts';
 import utils from '../utils/utils.ts';
 

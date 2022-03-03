@@ -1,7 +1,7 @@
 import {Database, Collection } from 'https://deno.land/x/mongo@v0.29.2/mod.ts';
 import djwt from '../utils/login.ts';
 import { verify } from 'https://deno.land/x/djwt@v2.4/mod.ts';
-import {User, Recipe, Rating, Comment} from '../models/index.ts';
+import {User, Recipe, Rating, Comment, RecipeHeader} from '../models/index.ts';
 
 export default {
   valADbs: async (ctx: any): Promise<{
@@ -9,7 +9,8 @@ export default {
     users: Collection<User>, 
     recipies: Collection<Recipe>,
     ratings: Collection<Rating>,
-    comments: Collection<Comment>
+    comments: Collection<Comment>,
+    headers: Collection<RecipeHeader>
   }> => {
     const token = await ctx.cookies.get('userToken');
     const verified: any = await verify(token, djwt.key);
@@ -19,6 +20,7 @@ export default {
     const recipies = db.collection<Recipe>('recipies');
     const ratings = db.collection<Rating>('ratings');
     const comments = db.collection<Comment>('comments');
-    return { verified: verified.id, users, recipies, ratings, comments };
+    const headers = db.collection<RecipeHeader>('headers');
+    return { verified: verified.id, users, recipies, ratings, comments, headers };
   }
 }

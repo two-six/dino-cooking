@@ -18,6 +18,15 @@ export interface Recipe {
     accepted?: boolean;
 };
 
+export interface RecipeHeader {
+    recipe_id: Bson.ObjectId;
+    author: string;
+    title: string;
+    language: string;
+    expected_time: string;
+    rating: number;
+}
+
 export interface User {
     _id: Bson.ObjectId;
     username: string;

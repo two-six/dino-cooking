@@ -134,6 +134,15 @@ type: POST
 - requires a valid 'userToken'(JWT type) for an admin.
 - changes user's with given `id` role to `user`
 
+### /mod/viewrec
+- type: GET
+- requires a valid 'userToken'(JWT type) for an admin or a moderator.
+- returns a list of all unaccepted recipies
+
+### /mod/viewcom
+- type: GET
+- requires a valid 'userToken'(JWT type) for an admin or a moderator.
+- returns a list of all unaccepted comments
 
 ### /mod/viewmod/
 - type: GET
@@ -143,3 +152,18 @@ type: POST
 - type: POST
 - requres a valid 'userToken'(JWT type) for an admin or a moderator.
 - accepts comment with a given `id`
+
+### /mod/recaccept/`id`
+- type: POST
+- requires a valid 'userToken'(JWT type) for an admin or a moderator.
+- accepts recipe with given `id` and inserts a header of it to the database.
+
+### /mod/comdecline/`id`
+- type: DELETE
+- requires a valid 'userToken'(JWT type) for an admin or a moderator.
+- removes a comment if it's unaccepted.
+
+### /mod/recdecline/`id`
+- type: DELETE
+- requires a valid 'userToken'(JWT type) for an admin or a moderator.
+- removes a recipe if it's unaccepted.
