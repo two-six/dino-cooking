@@ -199,6 +199,5 @@ export default {
       ctx.state.logger.steps.error(e);
       ctx.response.body = 401;
     }
-
   }
 }

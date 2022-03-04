@@ -94,11 +94,11 @@ export default {
         recipeId: {$eq: new Bson.ObjectId(value.id)}
       });
       if(rCount > 0) {
-        const n = await ratings.deleteMany({
+        const n = await ratings.deleteOne({
           userId: {$eq: new Bson.ObjectId(verified)},
           recipeId: {$eq: new Bson.ObjectId(value.id)}
         });
-        ctx.state.logger.def.debug(`${n} rating/s deleted`);
+        ctx.state.logger.def.debug(`Rating deleted`);
       } else {
         ratings.insertOne({
           userId: new Bson.ObjectId(verified),

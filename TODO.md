@@ -14,11 +14,12 @@
 - [x] View comments
 - [x] Creating moderators
 - [x] Removing moderators
-- [ ] Recipies to accept page
-- [ ] Comments to accept page
-- [ ] View recipies accept page
-- [ ] View comments accept page
-- [ ] Accept page by id
-- [ ] Recipies' headers
+- [x] Recipies to accept page
+- [x] Comments to accept page
+- [x] View recipies accept page
+- [x] View comments accept page
+- [x] Accept page by id
+- [x] Recipies' headers
+- [ ] Edited Recipies and comments to accept page
 - [ ] Password recovery
 - [ ] Limit to the received input
