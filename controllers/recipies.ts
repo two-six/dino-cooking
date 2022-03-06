@@ -6,8 +6,8 @@ import utils from '../utils/utils.ts';
 export default {
   view: async (ctx: any) => {
     const db: Database = ctx.state.client.database('dino-cooking');
-    const recipies = db.collection<Recipe>('recipies');
-    const allRecipies = (await recipies.find({accepted: { $eq: true }}).toArray());
+    const recipies = db.collection<Recipe>('headers');
+    const allRecipies = (await recipies.find({title: { $ne: '' }}).toArray());
 
     ctx.response.body = allRecipies;
   },

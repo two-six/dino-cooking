@@ -130,7 +130,7 @@ export default {
       const value = helpers.getQuery(ctx, {mergeParams: true});
       await recipies.updateOne(
         {_id: {$eq: new Bson.ObjectId(value.id)}},
-        {accepted: true}
+        {$set: {accepted: true}}
       );
       ctx.state.logger.def.debug('Recipe accepted');
       const curRecipe: any = await recipies.findOne({
