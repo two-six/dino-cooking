@@ -5,7 +5,6 @@
     }
     #title {
         color: black;
-        text-shadow: 3px 3px #999;
     }
     .category-title {
         color: #008f11;
@@ -19,15 +18,10 @@
     }
     #title {
         color: white;
-        text-shadow: 3px 3px #555;
     }
     .category-title {
         color: #008f11;
     }
-}
-
-h1 {
-  text-align: center;
 }
 
 body {
@@ -62,10 +56,28 @@ a {
     color: #2980B9;
 }
 
-main {
-    padding-bottom: 2.5rem;    /* Footer height */
+#search-bar {
+  margin-left: 30%;
+  width: 40%;
 }
 
-li::marker {
-    content: "> ";
+#search-bar input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  height: 20px;
+  border: none;
+  width: 80%;
+}
+
+#search-bar input[type=image] {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #fff;
+  height: 20px;
+  border: none;
+  cursor: pointer;
+  width: 10%;
 }

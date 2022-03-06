@@ -11,6 +11,6 @@ fetchJSON = async (url) => {
 fetchJSON('http://localhost:8000/recipies/view')
   .then(res => {
     let str = "";
-    res.forEach(recipe => str += recipe.title + '<br>');
+    res.forEach(recipe => str += `<a href="#">${recipe.title}</a>` + '<br>');
     document.getElementById('test').innerHTML = str;
   });
