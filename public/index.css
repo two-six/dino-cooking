@@ -1,66 +1,74 @@
+@font-face {
+  font-family: Icons;
+  src: url(assets/fonts/icons.ttf);
+}
 @media (prefers-color-scheme: light) {
-    body {
-        background-color: #e7e7e7;
-        color: black;
-    }
-    #title {
-        color: black;
-    }
-    .category-title {
-        color: #008f11;
-    }
-}
+  body {
+    background-color: #e7e7e7;
+    color: #000;
+  }
 
+  #title {
+    color: #000;
+  }
+
+  #search-bar input[type=text] {
+    background-color: #e7e7e7;
+    color: #000;
+  }
+}
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: #181818;
-        color: white;
-    }
-    #title {
-        color: white;
-    }
-    .category-title {
-        color: #008f11;
-    }
-}
+  body {
+    background-color: #181818;
+    color: #fff;
+  }
 
+  #title {
+    color: #fff;
+  }
+
+  #search-bar input[type=text] {
+    background-color: #181818;
+    color: #fff;
+  }
+}
 body {
-    font-size: 26px;
-    margin-left: 10%;
-    margin-right: 10%;
-    position: relative;
-    min-height: 90vh;
+  font-size: 26px;
+  margin-left: 10%;
+  margin-right: 10%;
+  position: relative;
+  min-height: 90vh;
 }
 
 #title {
-    text-align: center;
-    font-size: 40px;
+  text-align: center;
+  font-size: 40px;
 }
 
 .category-title {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 footer {
-    margin-left: 10%;
-    margin-right: 10%;
-    position: absolute;
-    bottom: 0;
-    width: 80%;
-    height: 2.5rem;
-    font-size: 16px;
-    text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  position: absolute;
+  bottom: 0;
+  width: 80%;
+  height: 2.5rem;
+  font-size: 16px;
+  text-align: center;
 }
 
 a {
-    color: #2980B9;
+  color: #2980B9;
 }
 
 #search-bar-wrapper {
-    margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    /* border-style: solid; */
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  /* border-style: solid; */
 }
 
 #search-bar {
@@ -68,27 +76,24 @@ a {
   height: 40px;
   position: relative;
 }
-
 #search-bar input[type=text] {
-    padding-left: 2px;
-    height: 40px;
-    width: 600px;
-    border-radius: 15px 15px 15px 15px;
-    border-style: solid;
+  padding-left: 2px;
+  height: 40px;
+  width: 600px;
+  border-radius: 15px 15px 15px 15px;
+  border-style: solid;
+  border-color: #777;
+}
+#search-bar input[type=submit] {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  width: 80px;
+  background: transparent;
+  font-size: 20px;
+  outline: none;
+  text-align: right;
+  font-family: Icons;
 }
 
-#search-bar #image-wrapper {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 80px;
-    height: 40px;
-    background: none;
-}
-
-#search-bar input[type=image] {
-    margin-top: 15px;
-    margin-right: 10px;
-    height: 15px;
-    float: right;
-}
+/*# sourceMappingURL=index.css.map */
